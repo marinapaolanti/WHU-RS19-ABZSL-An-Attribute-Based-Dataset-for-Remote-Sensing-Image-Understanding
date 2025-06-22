@@ -1,0 +1,61 @@
+
+attribute_names = train_df.columns[2:-1]
+
+attribute_translation = {
+    'Aereo': 'Airplane', 'Strada': 'Road', 'Ponte': 'Bridge', 'Mezzi di trasporto su strada': 'Road Transport',
+    'Case': 'Houses', 'Prato': 'Grass', 'Alberi': 'Trees', 'Monti': 'Mountains', 'Terreno': 'Soil',
+    'Acqua': 'Water', 'Sabbia': 'Sand', 'Mezzi di trasporto via acqua': 'Water Transport', 'Banchina': 'Dock',
+    'Stadio': 'Stadium', 'Campo da calcio': 'Football Field', 'Edifici': 'Buildings', 'Posti per auto': 'Parking Spots',
+    'Binari': 'Rails', 'Treni': 'Trains', 'Rosso': 'Red', 'Arancione': 'Orange', 'Ocra': 'Ochre',
+    'Beige': 'Beige', 'Verde': 'Green', 'Azzurro': 'Light Blue', 'Blu': 'Blue', 'Marrone': 'Brown',
+    'Grigio': 'Gray', 'Bianco': 'White', 'Nero': 'Black', 'Rettangolo': 'Rectangle', 'Triangolo': 'Triangle',
+    'Quadrato': 'Square', 'Sinusoide': 'Sine Wave', 'Linea': 'Line', 'Linea tratteggiata': 'Dashed Line',
+    'Curva': 'Curve', 'Curva chiusa': 'Closed Curve'
+}
+
+translated_attribute_names = [attribute_translation.get(attr, attr) for attr in attribute_names]
+
+def evaluate_model(model, name):
+    model.eval()
+    preds = []
+    trues = []
+
+    with torch.no_grad():
+        for images, labels in test_loader:
+            images = images.to(device)
+            outputs = model(images)
+            if isinstance(outputs, tuple):
+                outputs = outputs[0]
+            preds.append((outputs > 0.5).cpu().numpy())
+            trues.append(labels.numpy())
+
+    preds = np.vstack(preds)
+    trues = np.vstack(trues)
+
+    precision, recall, f1, _ = precision_recall_fscore_support(trues, preds, average=None)
+    f1_macro = f1_score(trues, preds, average='macro')
+
+    print(f"\n📄 Classification Report for {name.upper()}")
+    print(classification_report(trues, preds, target_names=translated_attribute_names))  # <<-- qui tradotto!
+
+    x = np.arange(len(translated_attribute_names))
+    width = 0.25
+
+    plt.figure(figsize=(14, 6))
+    plt.bar(x - width, precision, width, label='Precision')
+    plt.bar(x, recall, width, label='Recall')
+    plt.bar(x + width, f1, width, label='F1-score')
+    plt.xticks(x, translated_attribute_names, rotation=90)
+    plt.ylabel('Score')
+    plt.title(f"Metrics per Attribute - {name.upper()}")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+    return f1_macro
+
+f1_scores = {}
+for model_name, (model, losses) in trained_models.items():
+    f1_macro = evaluate_model(model, model_name)
+    f1_scores[model_name] = f1_macro
