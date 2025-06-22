@@ -1,0 +1,52 @@
+from sklearn.metrics import multilabel_confusion_matrix
+import seaborn as sns
+
+def plot_conf_matrix_all(y_true, y_pred, class_names, model_name):
+    print(f"\n📊 Plotting multilabel confusion matrix for {model_name.upper()}")
+
+    cm_per_class = multilabel_confusion_matrix(y_true, y_pred)
+
+    # Costruisci una matrice vuota 38x38 per visualizzare TP come diagonale
+    matrix = np.zeros((len(class_names), len(class_names)), dtype=int)
+
+    for i, cm in enumerate(cm_per_class):
+        # True Positives saranno sulla diagonale
+        tp = cm[1, 1]
+        matrix[i, i] = tp
+
+        fp_indices = np.where((y_pred[:, i] == 1) & (y_true[:, i] == 0))[0]
+        for j in range(len(class_names)):
+            if i != j:
+                # Aggiungi FP distribuiti solo per visualizzazione
+                matrix[i, j] += ((y_pred[fp_indices, j] == 1).sum())
+
+    plt.figure(figsize=(14, 12))
+    sns.heatmap(matrix, xticklabels=class_names, yticklabels=class_names,
+                cmap="Reds", cbar=True, annot=False, fmt="d")
+    plt.xlabel("Predicted Attribute")
+    plt.ylabel("True Attribute")
+    plt.title(f"Confusion Matrix – {model_name.upper()}")
+    plt.xticks(rotation=90)
+    plt.yticks(rotation=0)
+    plt.tight_layout()
+    plt.show()
+
+for model_name, (model, _) in trained_models.items():
+    print(f"\n📥 Generating predictions for {model_name.upper()} (confusion matrix)...")
+    model.eval()
+    y_pred_all = []
+    y_true_all = []
+
+    with torch.no_grad():
+        for images, labels in test_loader:
+            images = images.to(device)
+            outputs = model(images)
+            if isinstance(outputs, tuple):
+                outputs = outputs[0]
+            y_pred_all.append((outputs > 0.5).cpu().numpy())
+            y_true_all.append(labels.numpy())
+
+    y_pred_all = np.vstack(y_pred_all)
+    y_true_all = np.vstack(y_true_all)
+
+    plot_conf_matrix_all(y_true_all, y_pred_all, translated_attribute_names, model_name)
