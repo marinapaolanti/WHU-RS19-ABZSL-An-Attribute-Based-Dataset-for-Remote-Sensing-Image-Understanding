@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" width="640" height="160">
+  <!-- icon backdrop -->
+  <rect x="16" y="14" width="132" height="132" rx="22" fill="#F8F9F0" stroke="#1E2A20" stroke-width="2.5"/>
+
+  <!-- viewfinder corner brackets -->
+  <path d="M22,34 L22,20 L36,20 M126,20 L142,20 L142,34 M22,126 L22,140 L36,140 M142,126 L142,140 L126,140"
+        fill="none" stroke="#1E2A20" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 3x3 attribute grid: rust = objects, teal = colours, olive = geometric patterns -->
+  <rect x="37" y="35" width="26" height="26" rx="5" fill="#8B4A2E"/>
+  <rect x="69" y="35" width="26" height="26" rx="5" fill="#A9A99C"/>
+  <rect x="101" y="35" width="26" height="26" rx="5" fill="#A9A99C"/>
+
+  <rect x="37" y="67" width="26" height="26" rx="5" fill="#A9A99C"/>
+  <rect x="69" y="67" width="26" height="26" rx="5" fill="#2B565C"/>
+  <rect x="101" y="67" width="26" height="26" rx="5" fill="#A9A99C"/>
+
+  <rect x="37" y="99" width="26" height="26" rx="5" fill="#A9A99C"/>
+  <rect x="69" y="99" width="26" height="26" rx="5" fill="#A9A99C"/>
+  <rect x="101" y="99" width="26" height="26" rx="5" fill="#52632F"/>
+
+  <!-- wordmark -->
+  <text x="180" y="72" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700"
+        letter-spacing="-1" fill="#1E2A20">WHU-RS19</text>
+
+  <rect x="181" y="86" width="92" height="27" rx="13.5" fill="#8B4A2E"/>
+  <text x="227" y="104" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700"
+        letter-spacing="1.5" fill="#F8F9F0" text-anchor="middle">ABZSL</text>
+
+  <text x="180" y="128" font-family="Arial, Helvetica, sans-serif" font-size="13" letter-spacing="1.4"
+        fill="#4A5A4C">ATTRIBUTE-BASED REMOTE SENSING DATASET</text>
+</svg>
