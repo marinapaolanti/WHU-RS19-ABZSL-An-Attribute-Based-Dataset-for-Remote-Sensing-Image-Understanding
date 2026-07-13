@@ -5,10 +5,14 @@
 <h3 align="center">An Attribute-Based Dataset for Remote Sensing Image Understanding</h3>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Paper-Remote%20Sensing%202025-8B4A2E" alt="[![Paper](https://img.shields.io/badge/Paper-Remote%20Sensing%202025-8B4A32)]([https://doi.org/10.3390/rs17142384](https://www.mdpi.com/2072-4292/17/14/2384))
-  <img src="https://img.shields.io/badge/DOI-10.3390%2Frs17142384-2B565C" alt="doi">
-  <img src="https://img.shields.io/badge/License-CC%20BY%204.0-52632F" alt="license">
-  <img src="https://img.shields.io/badge/Attributes-38-6B3A22" alt="attributes">
+  <a href="https://www.mdpi.com/2072-4292/17/14/2384">
+    <img src="https://img.shields.io/badge/Paper-Remote%20Sensing%202025-8B4A2E" alt="Paper">
+  </a>
+  <a href="https://doi.org/10.3390/rs17142384">
+    <img src="https://img.shields.io/badge/DOI-10.3390%2Frs17142384-2B565C" alt="DOI">
+  </a>
+  <img src="https://img.shields.io/badge/License-CC%20BY%204.0-52632F" alt="License">
+  <img src="https://img.shields.io/badge/Attributes-38-6B3A22" alt="Attributes">
 </p>
 
 <p align="center">
